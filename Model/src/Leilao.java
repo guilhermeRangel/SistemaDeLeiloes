@@ -1,22 +1,20 @@
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class Leilao {
-    private Date inicio;
-    private Date fim;
     private Produto produto;
     private ArrayList<Proposta> propostas = new ArrayList<>();
     private Cliente currentCliente;
     private boolean status;
 
 
-    public Leilao(Produto produto, ArrayList<Proposta> propostas, Cliente currentCliente, boolean status) {
+    public Leilao(Produto produto,  Cliente currentCliente, boolean status) {
 
         this.produto = produto;
-        this.propostas = propostas;
         this.currentCliente = currentCliente;
         this.status = status;
     }
+
 
 
 
@@ -30,12 +28,12 @@ public class Leilao {
         this.produto = produto;
     }
 
-    public ArrayList<Proposta> getPropostas() {
+    public ArrayList<Proposta> getListaDePropostas() {
         return propostas;
     }
 
-    public void setPropostas(ArrayList<Proposta> propostas) {
-        this.propostas = propostas;
+    public void setPropostas(Proposta p) {
+        propostas.add(p);
     }
 
     public Cliente getCurrentCliente() {

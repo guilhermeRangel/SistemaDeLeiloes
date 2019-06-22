@@ -2,27 +2,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.text.View;
 
-public class JanelaMenu implements ActionListener {
+public class JanelaMenu extends Thread implements ActionListener {
 
-    Cliente currentCli = null;
+    Cliente cli = Cliente.getInstancia();
+
+
+    JList l1 = ListaDeLeiloes.getInstanceList1();
+    JList l2 = ListaDeLeiloes.getInstanceList2();
+
+
     JLabel idUser = null;
 
     JFrame janela = new JFrame();
     JPanel painel = new JPanel();
-    JLabel labelLeilaoGeral = new JLabel("Selecione o leilao desejado para entrar:");
+    JLabel labelLeilaoGeral = new JLabel("Selecione um dos leiloes abertos  abaixo entrar:");
 
     JLabel labelLeilaoProprio = new JLabel("Selecione o seu leilao: ");
 
-    DefaultListModel listModel1 = new DefaultListModel();
-    DefaultListModel listModel2 = new DefaultListModel();
+    DefaultListModel listModel1 = ListaDeLeiloes.getInstanceListModel1();
+    DefaultListModel listModel2 = ListaDeLeiloes.getInstanceListModel2();
 
-    JList lista1 = new JList(listModel1);
-    JList lista2= new JList(listModel2);
+
 
     JButton btnEntrarLeilao = new JButton("Entrar no Leilao");
     JButton btnEntrarLeilaoProprio = new JButton("Entrar");
@@ -31,7 +38,7 @@ public class JanelaMenu implements ActionListener {
     JButton btnCriarNovoLeilao = new JButton("Criar Novo Leilao");
 
 
-    JanelaCadastraLeilao jc = null;
+    JanelaCadastraLeilao janelaCadastraLeilao = null;
 
 
 
@@ -40,29 +47,28 @@ public class JanelaMenu implements ActionListener {
 
 
 
+    public JanelaMenu() {
 
 
+        painel.removeAll();
+
+        l1 = new JList(ListaDeLeiloes.getInstanceListModel1());
+        l2 = new JList(ListaDeLeiloes.getInstanceListModel2());
+
+    idUser = new JLabel("Bem vindo:  -  "+ cli.getNome());
 
 
-    public JanelaMenu(Cliente cliente) {
-    currentCli = cliente;
-    idUser = new JLabel("Bem vindo:  -  "+ currentCli.getNome());
-
-    listModel1.addElement("leilao 1:");
-    listModel2.addElement("meu leiloes Aberto");
-
-        janela.setTitle("Sistema de Leiloes");
+        janela.setTitle("Sistema de Leiloes [" + idUser.getText() + "]");
         janela.setSize(400, 400);
         janela.setLocation(400, 200);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         painel.setLayout(new GridLayout(8, 1, 5, 1));
 
-//        idUser.setHorizontalAlignment(0);
-//        painel.add(idUser); //list
 
         labelLeilaoGeral.setHorizontalAlignment(0);
         painel.add(labelLeilaoGeral); //label
-        painel.add(lista1); //list
+        painel.add(l1); //list
         painel.add(btnEntrarLeilao); //btnEntrr
         btnEntrarLeilao.setEnabled(true);
         btnCriarNovoLeilao.setEnabled(true);
@@ -73,7 +79,7 @@ public class JanelaMenu implements ActionListener {
 
         labelLeilaoGeral.setHorizontalAlignment(0);
         painel.add(labelLeilaoProprio); //label
-        painel.add(lista2); //lista dos abertos qualquer
+        painel.add(l2); //lista dos abertos qualquer
         painel.add(btnEntrarLeilaoProprio);
         painel.add(btnEncerrarLeilao);
         painel.add(btnCriarNovoLeilao);
@@ -88,11 +94,25 @@ public class JanelaMenu implements ActionListener {
 
         janela.add(painel);
 
+        System.out.println("repaint");
+        System.out.println(painel.getComponentCount());
+
+        //painel.revalidate();
+        //painel.updateUI();
+
+        //painel.setEnabled(true);
+       // painel.isPaintingForPrint();
+
+
+        //janela.setResizable(true);
+//        painel.validate();
+        painel.repaint();
+       // janela.setContentPane(painel);
+
+        janela.repaint();
 
         janela.setVisible(true);
     }
-
-
 
 
 
@@ -103,11 +123,35 @@ public class JanelaMenu implements ActionListener {
 
         if (e.getSource() == btnCriarNovoLeilao) {
 
-        jc = new JanelaCadastraLeilao(currentCli);
+        janela.setVisible(false);
+        janelaCadastraLeilao = new JanelaCadastraLeilao();
+
+        }
+
+        if (e.getSource() == btnEntrarLeilaoProprio) {
+
+
+
+        }
+
+        if (e.getSource() == btnEncerrarLeilao) {
+
+
+        if(l2.getSelectedIndex() >= 0) {
+            listModel2.remove(l2.getSelectedIndex());
 
         }
 
 
+
+        }
+
+
+
+    }
+
+    public void run() {
+        // Your database code here
     }
 }
 

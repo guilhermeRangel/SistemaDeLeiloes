@@ -13,10 +13,12 @@ public class JanelaInicial implements ActionListener{
     JFrame janelaPrincipal = new JFrame();
     JPanel painel = new JPanel();
     JLabel BemVindo = new JLabel("Bem Vindo selecione: ");
-    JanelaCadastro janelaC = null;
+    JanelaCadastro janelaCadastro = null;
 
     JButton btnCliente = new JButton("Cliente");
     JButton btnAdm = new JButton("Administrador");
+
+
 
 
     public static void main(String args[]) {
@@ -54,7 +56,7 @@ public class JanelaInicial implements ActionListener{
 
 
             janelaPrincipal.setVisible(false);
-            janelaC = new JanelaCadastro();
+            janelaCadastro = new JanelaCadastro();
         }
 
         if (e.getSource() == btnAdm) {

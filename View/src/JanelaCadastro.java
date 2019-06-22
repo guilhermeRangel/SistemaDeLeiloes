@@ -12,9 +12,9 @@ public class JanelaCadastro implements ActionListener{
 
 
 
-    JanelaMenu jm = null;
+    JanelaMenu janelaMenu = null;
 
-    Cliente cliente = null;
+
     JFrame janela = new JFrame();
     JPanel painel = new JPanel();
 
@@ -72,7 +72,7 @@ public class JanelaCadastro implements ActionListener{
         btnCadastrar.addActionListener(this);
         btnLimpar.addActionListener(this);
 
-
+        //add btns
         painel.add(btnCadastrar);
         painel.add(btnLimpar);
 
@@ -88,12 +88,14 @@ public class JanelaCadastro implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCadastrar) {
 
-            cliente = new Cliente(nome.getText(), email.getText(), cpf.getText());
+            //factory
+            Cliente cliente = new Cliente(nome.getText(), cpf.getText(), email.getText());
+           Cliente.setInstancia(cliente);
 
-            System.out.println(cliente.toString());
+
             JOptionPane.showMessageDialog(null, "Cadastro Efetuado com Sucesso!!");
             janela.setVisible(false);
-            jm = new JanelaMenu(cliente);
+            janelaMenu = new JanelaMenu();
 
         }
 

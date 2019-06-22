@@ -59,7 +59,6 @@ public class Produto {
                 "nomeProduto='" + nomeProduto + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", valorInicial=" + valorInicial +
-                ", imagemProduto='" + imagemProduto + '\'' +
-                '}';
+                 +'}';
     }
 }
