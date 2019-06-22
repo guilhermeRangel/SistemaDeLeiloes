@@ -31,6 +31,9 @@ public class JanelaInicial implements ActionListener{
 
 
     public JanelaInicial() {
+
+
+
         janelaPrincipal.setTitle("Sistema de Leiloes");
         janelaPrincipal.setSize(200, 200);
 
@@ -47,6 +50,7 @@ public class JanelaInicial implements ActionListener{
 
         janelaPrincipal.add(painel);//mostramos a janela
         janelaPrincipal.setVisible(true);
+
     }
 
 

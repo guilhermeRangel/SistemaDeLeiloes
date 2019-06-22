@@ -30,17 +30,14 @@ import javax.swing.*;
         private OutputStream ou ;
         private Writer ouw;
         private BufferedWriter bfw;
-        private JTextField txtIP;
-        private JTextField txtPorta;
-        private JTextField txtNome;
+
+
+        Cliente cli = Cliente.getInstancia();
+
 
         public ClienteLeilao() throws IOException{
-            JLabel lblMessage = new JLabel("Verificar!");
-            txtIP = new JTextField("127.0.0.1");
-            txtPorta = new JTextField("12345");
-            txtNome = new JTextField("Cliente");
-            Object[] texts = {lblMessage, txtIP, txtPorta, txtNome };
-            JOptionPane.showMessageDialog(null, texts);
+
+
             pnlContent = new JPanel();
             texto              = new JTextArea(10,20);
             texto.setEditable(false);
@@ -67,7 +64,7 @@ import javax.swing.*;
             pnlContent.setBackground(Color.LIGHT_GRAY);
             texto.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.BLUE));
             txtMsg.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.BLUE));
-            setTitle(txtNome.getText());
+            setTitle(cli.getNome());
             setContentPane(pnlContent);
             setLocationRelativeTo(null);
             setResizable(false);
@@ -82,11 +79,11 @@ import javax.swing.*;
          */
         public void conectar() throws IOException{
 
-            socket = new Socket(txtIP.getText(),Integer.parseInt(txtPorta.getText()));
+            socket = new Socket( "127.0.0.1",12345);
             ou = socket.getOutputStream();
             ouw = new OutputStreamWriter(ou);
             bfw = new BufferedWriter(ouw);
-            bfw.write(txtNome.getText()+"\r\n");
+            bfw.write(cli.getNome()+"\r\n");
             bfw.flush();
         }
 
@@ -96,40 +93,38 @@ import javax.swing.*;
          * @throws IOException retorna IO Exception caso dê algum erro.
          */
         public void enviarMensagem(String msg) throws IOException{
-
+            escutar();
             if(msg.equals("Sair")){
                 bfw.write("Desconectado \r\n");
                 texto.append("Desconectado \r\n");
             }else{
                 bfw.write(msg+"\r\n");
-                texto.append( txtNome.getText() + " diz -> " +         txtMsg.getText()+"\r\n");
+                texto.append( cli.getNome() + " diz -> " +         txtMsg.getText()+"\r\n");
             }
             bfw.flush();
             txtMsg.setText("");
+
         }
 
         /**
          * Método usado para receber mensagem do servidor
          * @throws IOException retorna IO Exception caso dê algum erro.
          */
-        public void escutar() throws IOException{
+        public void escutar() throws IOException {
 
             InputStream in = socket.getInputStream();
             InputStreamReader inr = new InputStreamReader(in);
             BufferedReader bfr = new BufferedReader(inr);
             String msg = "";
 
-            while(!"Sair".equalsIgnoreCase(msg))
 
-                if(bfr.ready()){
-                    msg = bfr.readLine();
-                    if(msg.equals("Sair"))
-                        texto.append("Servidor caiu! \r\n");
-                    else
-                        texto.append(msg+"\r\n");
-                }
+            if (bfr.ready()) {
+                msg = bfr.readLine();
+
+                texto.append(msg + "\r\n");
+
+            }
         }
-
         /*
          * Método usado quando o usuário clica em sair
          * @throws IOException retorna IO Exception caso dê algum erro.

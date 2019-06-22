@@ -115,18 +115,13 @@ import javax.swing.JTextField;
                 while(true){
 
                     System.out.println("Aguardando conexão...");
-                    //JanelaCadastraLeilao janelaCadastraLeilao = new JanelaCadastraLeilao();
+
                     Socket con = server.accept();
 
                     System.out.println("Cliente conectado...");
 
-
-
-
-
                     Thread t = new Servidor(con);
                     t.start();
-
 
 
                 }

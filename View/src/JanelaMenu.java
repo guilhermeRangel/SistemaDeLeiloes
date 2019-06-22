@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,7 +64,7 @@ public class JanelaMenu extends Thread implements ActionListener {
         janela.setLocation(400, 200);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        painel.setLayout(new GridLayout(8, 1, 5, 1));
+        painel.setLayout(new GridLayout(7, 1, 5, 1));
 
 
         labelLeilaoGeral.setHorizontalAlignment(0);
@@ -80,7 +81,7 @@ public class JanelaMenu extends Thread implements ActionListener {
         labelLeilaoGeral.setHorizontalAlignment(0);
         painel.add(labelLeilaoProprio); //label
         painel.add(l2); //lista dos abertos qualquer
-        painel.add(btnEntrarLeilaoProprio);
+        //painel.add(btnEntrarLeilaoProprio);
         painel.add(btnEncerrarLeilao);
         painel.add(btnCriarNovoLeilao);
 
@@ -88,30 +89,15 @@ public class JanelaMenu extends Thread implements ActionListener {
         btnEncerrarLeilao.setEnabled(true);
         btnCriarNovoLeilao.setEnabled(true);
 
-        btnEntrarLeilaoProprio.addActionListener(this);
+
         btnEncerrarLeilao.addActionListener(this);
         btnCriarNovoLeilao.addActionListener(this);
 
         janela.add(painel);
 
-        System.out.println("repaint");
-        System.out.println(painel.getComponentCount());
-
-        //painel.revalidate();
-        //painel.updateUI();
-
-        //painel.setEnabled(true);
-       // painel.isPaintingForPrint();
-
-
-        //janela.setResizable(true);
-//        painel.validate();
-        painel.repaint();
-       // janela.setContentPane(painel);
-
-        janela.repaint();
 
         janela.setVisible(true);
+
     }
 
 
@@ -126,9 +112,11 @@ public class JanelaMenu extends Thread implements ActionListener {
         janela.setVisible(false);
         janelaCadastraLeilao = new JanelaCadastraLeilao();
 
+
         }
 
         if (e.getSource() == btnEntrarLeilaoProprio) {
+
 
 
 
@@ -146,12 +134,21 @@ public class JanelaMenu extends Thread implements ActionListener {
 
         }
 
+        if (e.getSource() == btnEntrarLeilao){
+
+            try {
+                ClienteLeilao l = new ClienteLeilao();
+                l.conectar();
+                l.escutar();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
 
 
     }
 
-    public void run() {
-        // Your database code here
-    }
+
 }
 

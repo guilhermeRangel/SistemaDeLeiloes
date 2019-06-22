@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -99,32 +100,15 @@ public class JanelaCadastraLeilao extends Thread implements ActionListener{
 
             ListaDeLeiloes.setInstanciaList2(l2);
 
-
-
+            TesteOrgJson1 k = new TesteOrgJson1(leilao);
 
 
 
             janela.setVisible(false);
+            backJanelaMenu = new JanelaMenu();
+//
 
 
-
-            new java.util.Timer().schedule(new TimerTask(){
-                @Override
-                public void run() {
-                    System.out.println("Executed...");
-
-                    Thread janela = new JanelaMenu();
-                    janela.start();
-                }
-            },1000*2);
-
-
-
-
-
-
-
-            Servidor server = new Servidor();
         }
 
         if (e.getSource() == btnVoltar) {

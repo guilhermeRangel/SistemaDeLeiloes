@@ -8,5 +8,6 @@
     <orderEntry type="jdk" jdkName="12" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Model" />
+    <orderEntry type="module" module-name="Controller" />
   </component>
 </module>
