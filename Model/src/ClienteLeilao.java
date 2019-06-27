@@ -14,7 +14,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
-import javax.swing.*;
+    import java.util.ArrayList;
+    import javax.swing.*;
 
     public class ClienteLeilao extends JFrame implements ActionListener, KeyListener {
 
@@ -31,11 +32,14 @@ import javax.swing.*;
         private Writer ouw;
         private BufferedWriter bfw;
 
+        ArrayList<Leilao> listaDeLeiloes = ListaDeLeiloes.getInstanceListLeiloes();
 
         Cliente cli = Cliente.getInstancia();
+        Leilao leilaoAux = null;
 
 
-        public ClienteLeilao() throws IOException{
+
+        public ClienteLeilao(int nLeilao) throws IOException{
 
 
             pnlContent = new JPanel();
@@ -99,7 +103,13 @@ import javax.swing.*;
                 texto.append("Desconectado \r\n");
             }else{
                 bfw.write(msg+"\r\n");
+
+                //add em Prpostas
                 texto.append( cli.getNome() + " diz -> " +         txtMsg.getText()+"\r\n");
+
+
+
+
             }
             bfw.flush();
             txtMsg.setText("");
@@ -178,8 +188,9 @@ import javax.swing.*;
 
         public static void main(String []args) throws IOException{
 
-            ClienteLeilao app = new ClienteLeilao();
+            ClienteLeilao app = new ClienteLeilao(0);
             app.conectar();
             app.escutar();
+
         }
     }

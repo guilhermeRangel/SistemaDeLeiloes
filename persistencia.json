@@ -1,1 +1,6 @@
-{"emailCliente":"email@dominio.com","valor_produto":10,"cpfCliente":"1234124","nome_produto":"pao","propostas":[],"descicao_produto":"Descricao detalhadaasdasdasd","nomeCliente":"Fabricio","status":true}
+[{"emailCliente":"email@dominio.com","valor_produto":321,"cpfCliente":"CPF: 000.000.000-00","nome_produto":"fdsfds","propostas":[],"descicao_produto":"Descricao detalhada","nomeCliente":"Digite seu nome:","status":true},
+
+
+{"emailCliente":"email@dominio.com","valor_produto":321,"cpfCliente":"CPF: 000.000.000-00","nome_produto":"fdsfds","propostas":[],"descicao_produto":"Descricao detalhada","nomeCliente":"Digite seu nome:","status":true},
+
+{"emailCliente":"email@dominio.com","valor_produto":321,"cpfCliente":"CPF: 000.000.000-00","nome_produto":"fdsfds","propostas":[],"descicao_produto":"Descricao detalhada","nomeCliente":"Digite seu nome:","status":true}]

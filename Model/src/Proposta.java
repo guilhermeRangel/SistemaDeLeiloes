@@ -1,18 +1,22 @@
 public class Proposta {
 
-    private Cliente cli;
+    private String cli;
     private Double valorLance;
 
-    public Proposta(Cliente cli, Double valorLance) {
+    public Proposta(String cli, Double valorLance) {
         this.cli = cli;
         this.valorLance = valorLance;
     }
 
-    public Cliente getCli() {
+    public Proposta(String clinteProposta) {
+
+    }
+
+    public String getCli() {
         return cli;
     }
 
-    public void setCli(Cliente cli) {
+    public void setCli(String cli) {
         this.cli = cli;
     }
 

@@ -2,18 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
 
 public class JanelaCadastraLeilao extends Thread implements ActionListener{
 
     //singleton
-    DefaultListModel listModel1 = ListaDeLeiloes.getInstanceListModel1();
+
     DefaultListModel listModel2 = ListaDeLeiloes.getInstanceListModel2();
+    ArrayList<Leilao> listaDeLeiloes = ListaDeLeiloes.getInstanceListLeiloes();
     //singleton
-        JList l1 = ListaDeLeiloes.getInstanceList1();
+
         JList l2 = ListaDeLeiloes.getInstanceList2();
 
         JanelaMenu backJanelaMenu = null;
@@ -44,7 +42,7 @@ public class JanelaCadastraLeilao extends Thread implements ActionListener{
     public JanelaCadastraLeilao(){
 
 
-    System.out.println("entrei aqui ");
+
 
         janela.setTitle("Nova Sala - Cadastrando Produto ...");
         janela.setSize(400, 400);
@@ -70,12 +68,8 @@ public class JanelaCadastraLeilao extends Thread implements ActionListener{
         painel.add(descricao);
         painel.add(valorInicial);
 
-
-
         painel.add(btnCadastrar);
         painel.add(btnVoltar);
-
-
 
         janela.add(painel);//mostramos a janela
         janela.setVisible(true);
@@ -88,25 +82,27 @@ public class JanelaCadastraLeilao extends Thread implements ActionListener{
 
         if (e.getSource() == btnCadastrar) {
             janela.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Produto Aidicionado com sucesso");
+            JOptionPane.showMessageDialog(null, "Leilao Criado com sucesso!");
 
 
 
             Produto produto = new Produto(nome.getText(), descricao.getText(), Double.parseDouble(valorInicial.getText()));
             Leilao leilao = new Leilao(produto, cli, true);
 
-            listModel2.addElement(produto.getNomeProduto());
-            l2.setModel(listModel2);
+            listModel2.addElement(produto.getNomeProduto() +" R$: " +produto.getValorInicial());
+
 
             ListaDeLeiloes.setInstanciaList2(l2);
 
-            TesteOrgJson1 k = new TesteOrgJson1(leilao);
+            listaDeLeiloes.add(leilao);
+
+
+            Persistencia persistencia = new Persistencia(leilao);
 
 
 
             janela.setVisible(false);
             backJanelaMenu = new JanelaMenu();
-//
 
 
         }

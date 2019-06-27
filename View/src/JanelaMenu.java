@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,12 +13,18 @@ import javax.swing.text.View;
 
 public class JanelaMenu extends Thread implements ActionListener {
 
+
     Cliente cli = Cliente.getInstancia();
 
 
+
+    ClienteLeilao l = null;
+    Leilao leilaoAux = null;
+
     JList l1 = ListaDeLeiloes.getInstanceList1();
     JList l2 = ListaDeLeiloes.getInstanceList2();
-
+    DefaultListModel listModel1 = ListaDeLeiloes.getInstanceListModel1();
+    DefaultListModel listModel2 = ListaDeLeiloes.getInstanceListModel2();
 
     JLabel idUser = null;
 
@@ -27,8 +34,7 @@ public class JanelaMenu extends Thread implements ActionListener {
 
     JLabel labelLeilaoProprio = new JLabel("Selecione o seu leilao: ");
 
-    DefaultListModel listModel1 = ListaDeLeiloes.getInstanceListModel1();
-    DefaultListModel listModel2 = ListaDeLeiloes.getInstanceListModel2();
+
 
 
 
@@ -43,18 +49,30 @@ public class JanelaMenu extends Thread implements ActionListener {
 
 
 
-
-
-
-
-
     public JanelaMenu() {
-
 
         painel.removeAll();
 
+        ReadJSONFile readJSONFile = new ReadJSONFile();
+
+        readJSONFile.leilaoArrayList();
+
+        ArrayList<Leilao> listaDeLeiloes = ListaDeLeiloes.getInstanceListLeiloes();
+
+
+
+
+
         l1 = new JList(ListaDeLeiloes.getInstanceListModel1());
         l2 = new JList(ListaDeLeiloes.getInstanceListModel2());
+
+            for (Leilao ll : listaDeLeiloes) {
+                listModel1.addElement(ll.getProduto().getNomeProduto()+" R$: " +ll.getProduto().getValorInicial());
+
+
+            }
+      //  l1 .setModel(listModel1);
+
 
     idUser = new JLabel("Bem vindo:  -  "+ cli.getNome());
 
@@ -68,7 +86,9 @@ public class JanelaMenu extends Thread implements ActionListener {
 
 
         labelLeilaoGeral.setHorizontalAlignment(0);
+
         painel.add(labelLeilaoGeral); //label
+
         painel.add(l1); //list
         painel.add(btnEntrarLeilao); //btnEntrr
         btnEntrarLeilao.setEnabled(true);
@@ -80,6 +100,7 @@ public class JanelaMenu extends Thread implements ActionListener {
 
         labelLeilaoGeral.setHorizontalAlignment(0);
         painel.add(labelLeilaoProprio); //label
+
         painel.add(l2); //lista dos abertos qualquer
         //painel.add(btnEntrarLeilaoProprio);
         painel.add(btnEncerrarLeilao);
@@ -116,9 +137,14 @@ public class JanelaMenu extends Thread implements ActionListener {
         }
 
         if (e.getSource() == btnEntrarLeilaoProprio) {
+            try {
 
-
-
+                l = new ClienteLeilao(l2.getSelectedIndex());
+                l.conectar();
+                l.escutar();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
         }
 
@@ -127,6 +153,8 @@ public class JanelaMenu extends Thread implements ActionListener {
 
         if(l2.getSelectedIndex() >= 0) {
             listModel2.remove(l2.getSelectedIndex());
+
+
 
         }
 
@@ -137,7 +165,7 @@ public class JanelaMenu extends Thread implements ActionListener {
         if (e.getSource() == btnEntrarLeilao){
 
             try {
-                ClienteLeilao l = new ClienteLeilao();
+                l = new ClienteLeilao(l2.getSelectedIndex());
                 l.conectar();
                 l.escutar();
             } catch (IOException ex) {

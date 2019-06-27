@@ -6,9 +6,20 @@ public class Leilao {
     private ArrayList<Proposta> propostas = new ArrayList<>();
     private Cliente currentCliente;
     private boolean status;
+    private int numeroLeilao;
+
+
+    public Leilao(Produto produto,  Cliente currentCliente, boolean status, ArrayList<Proposta> propostas) {
+
+        this.propostas = propostas;
+        this.produto = produto;
+        this.currentCliente = currentCliente;
+        this.status = status;
+    }
 
 
     public Leilao(Produto produto,  Cliente currentCliente, boolean status) {
+
 
         this.produto = produto;
         this.currentCliente = currentCliente;
@@ -17,8 +28,9 @@ public class Leilao {
 
 
 
-
-
+    public void setNleilao(int i){
+        numeroLeilao = i;
+    }
 
     public Produto getProduto() {
         return produto;

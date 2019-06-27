@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class ListaDeLeiloes {
 
@@ -6,6 +7,8 @@ public class ListaDeLeiloes {
     private static JList lista2;
     private static DefaultListModel listModel1;
     private static DefaultListModel listModel2;
+
+   private static ArrayList<Leilao> leiloesParseados;
 
     public static JList getInstanceList1() {
         if (lista1 == null) {
@@ -42,6 +45,15 @@ public class ListaDeLeiloes {
         return listModel2;
     }
 
+
+    public static ArrayList<Leilao> getInstanceListLeiloes() {
+        if (leiloesParseados == null) {
+            leiloesParseados = new ArrayList<Leilao>();
+
+        }
+        return leiloesParseados;
+    }
+
     public static JList getInstanciaLista1() {
         return lista1;
     }
@@ -57,7 +69,9 @@ public class ListaDeLeiloes {
         return listModel2;
     }
 
-
+    public static ArrayList<Leilao> getListLeiloese() {
+        return leiloesParseados;
+    }
 
 
     public static void setInstanciaList1(JList instancia1) {
@@ -68,6 +82,9 @@ public class ListaDeLeiloes {
         ListaDeLeiloes.lista2 = instancia2;
     }
 
+    public static void setLeiloesList(ArrayList<Leilao> leiloesParseados ) {
+        ListaDeLeiloes.leiloesParseados = leiloesParseados;
+    }
 
 
     public static void setInstanciaListaModel1(DefaultListModel instancia1) {
